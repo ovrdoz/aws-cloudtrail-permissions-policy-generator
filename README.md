@@ -10,14 +10,12 @@ To use this script, you must have AWS credentials configured on your machine or 
 export AWS_ACCESS_KEY_ID=<your_access_key>
 export AWS_SECRET_ACCESS_KEY=<your_secret_key>
 export AWS_DEFAULT_REGION=<your_aws_region>
-
 ```
 
 You must also have the **`boto3`** Python package installed. You can install it using pip:
 
 ```
 pip3 install boto3
-
 ```
 
 ## Usage
@@ -32,12 +30,41 @@ Example usage:
 
 ```
 python3 cloudtrail_policy_generator.py --service eks --region us-east-1 --hours 3
-
 ```
 
 This will generate an IAM policy for the "eks" service in the "us-east-1" region based on the CloudTrail events from the past 3 hours.
 
 The generated policy will be printed to the console in JSON format, so you can copy and paste it into your AWS IAM console or include it in your infrastructure as code.
+
+````
+last: 3h
+service name filter: eks
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "eks:DeleteNodegroup",
+                "eks:DescribeNodegroup",
+                "eks:ListClusters",
+                "eks:CreateAddon",
+                "eks:CreateCluster",
+                "eks:AccessKubernetesApi",
+                "eks:DeleteAddon",
+                "eks:ListIdentityProviderConfigs",
+                "eks:DescribeAddon",
+                "eks:ListNodegroups",
+                "eks:DescribeCluster",
+                "eks:CreateNodegroup",
+                "eks:ListFargateProfiles"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+````
 
 ## Note
 
